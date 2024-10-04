@@ -1,6 +1,14 @@
+// Root module of the application
+
 import { Module } from '@nestjs/common';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [],
+  imports: [UsersModule],
+  controllers: [],
+  providers: [],
+  exports: [],
 })
-export class AppModule {}
+export class AppModule {
+  
+}
