@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Param, Req } from '@nestjs/common';
 import { Request } from 'express';
 
 @Controller('products')
@@ -24,14 +24,13 @@ export class ProductsController {
   }
 
   @Get(':id') // * /products/1
-  getProductById(@Req() request: Request) {
+  getProductById(@Param('id') id: string) {
     if (
-      !request.params.id ||
-      !this.products.find((product) => product.id === +request.params.id)
+      !id ||
+      !this.products.find((product) => product.id === +id)
     ) {
       return 'No product found';
     }
-    console.log(request.params.id);
-    return this.products.find((product) => product.id === +request.params.id);
+    return this.products.find((product)=> product.id === +id);
   }
 }
