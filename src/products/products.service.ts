@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from 'interfaces'
+import { Request } from 'express';
+import { Product } from 'interfaces';
 
 @Injectable()
 export class ProductsService {
@@ -20,5 +21,52 @@ export class ProductsService {
 
   getProducts() {
     return this.products;
+  }
+
+  getProductById(id: string) {
+    if (!id || !this.products.find((product) => product.id === +id)) {
+      return 'No product found';
+    }
+    return this.products.find((product) => product.id === +id);
+  }
+
+  deleteProducts(id: string) {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === +id,
+    );
+    if (productIndex === -1) {
+      return 'No product found';
+    }
+
+    this.products.splice(productIndex, 1);
+
+    return {
+      message: 'Product deleted',
+      Products: this.products,
+    }
+  }
+
+  addProduct(request: Request) {
+    const lastProductId = this.products[this.products.length - 1].id;
+    const newProduct = {
+      id: lastProductId + 1,
+      title: request.body.title,
+    };
+    this.products.push(newProduct);
+    return newProduct;
+  }
+
+  updateProduct(body: { title: string }, id: string) {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === +id,
+    );
+    if (productIndex === -1) {
+      return 'No product found';
+    }
+    this.products[productIndex].title = body.title;
+    return {
+      message: 'Product updated',
+      product: this.products[productIndex],
+    };
   }
 }
