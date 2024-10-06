@@ -49,12 +49,13 @@ export class ProductsService {
     };
   }
 
-  addProduct(body: { title: string, description: string }) {
+  addProduct(body: { title: string, description: string, details: { price: number, quantity: number, brand: string } }) {
     const lastProductId = this.products[this.products.length - 1].id;
     const newProduct: CreateProductsDto = {
       // id: lastProductId + 1,
       title: body.title,
       description: body.description,
+      details: body.details,
     };
     this.products.push(newProduct);
     return newProduct;
