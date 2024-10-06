@@ -3,17 +3,17 @@ import { Request } from 'express';
 
 @Controller('products')
 export class ProductsController {
-  private products: { id: string; title: string }[] = [
+  private products: { id: number; title: string }[] = [
     {
-      id: '1',
+      id: 1,
       title: 'First Book',
     },
     {
-      id: '2',
+      id: 2,
       title: 'Second Book',
     },
     {
-      id: '3',
+      id: 3,
       title: 'Third Book',
     },
   ];
@@ -27,10 +27,11 @@ export class ProductsController {
   getProductById(@Req() request: Request) {
     if (
       !request.params.id ||
-      !this.products.find((product) => product.id === request.params.id)
+      !this.products.find((product) => product.id === +request.params.id)
     ) {
       return 'No product found';
     }
-    return this.products.find((product) => product.id === request.params.id);
+    console.log(request.params.id);
+    return this.products.find((product) => product.id === +request.params.id);
   }
 }
