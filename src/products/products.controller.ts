@@ -7,10 +7,11 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Req,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { ProductsService } from './products.service';
+import { CreateProductsDto } from './dto/create-products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -30,8 +31,9 @@ export class ProductsController {
 
   // Post method to add a product
   @Post('')
-  addProduct(@Body() body: { title: string }) {
-    return this.productsService.addProduct(body);
+  @UsePipes(ValidationPipe)
+  addProduct(@Body() CreateProductsDto: CreateProductsDto) {
+    return this.productsService.addProduct(CreateProductsDto);
   }
 
   // Delete method to delete a product

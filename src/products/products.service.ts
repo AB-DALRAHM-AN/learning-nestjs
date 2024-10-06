@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Request } from 'express';
 import { Product } from 'interfaces';
+import { CreateProductsDto } from './dto/create-products.dto';
 
 @Injectable()
 export class ProductsService {
@@ -8,14 +8,17 @@ export class ProductsService {
     {
       id: 1,
       title: 'First Book',
+      description: 'This is the first book',
     },
     {
       id: 2,
       title: 'Second Book',
+      description: 'This is the second book',
     },
     {
       id: 3,
       title: 'Third Book',
+      description: 'This is the third book',
     },
   ];
 
@@ -46,11 +49,12 @@ export class ProductsService {
     };
   }
 
-  addProduct(body: { title: string }) {
+  addProduct(body: { title: string, description: string }) {
     const lastProductId = this.products[this.products.length - 1].id;
-    const newProduct = {
-      id: lastProductId + 1,
+    const newProduct: CreateProductsDto = {
+      // id: lastProductId + 1,
       title: body.title,
+      description: body.description,
     };
     this.products.push(newProduct);
     return newProduct;
