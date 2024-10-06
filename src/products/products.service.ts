@@ -23,14 +23,14 @@ export class ProductsService {
     return this.products;
   }
 
-  getProductById(id: string) {
+  getProductById(id: number) {
     if (!id || !this.products.find((product) => product.id === +id)) {
       return 'No product found';
     }
     return this.products.find((product) => product.id === +id);
   }
 
-  deleteProducts(id: string) {
+  deleteProducts(id: number) {
     const productIndex = this.products.findIndex(
       (product) => product.id === +id,
     );
@@ -43,7 +43,7 @@ export class ProductsService {
     return {
       message: 'Product deleted',
       Products: this.products,
-    }
+    };
   }
 
   addProduct(request: Request) {
@@ -56,7 +56,7 @@ export class ProductsService {
     return newProduct;
   }
 
-  updateProduct(body: { title: string }, id: string) {
+  updateProduct(body: { title: string }, id: number) {
     const productIndex = this.products.findIndex(
       (product) => product.id === +id,
     );

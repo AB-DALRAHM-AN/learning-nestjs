@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Req,
@@ -23,7 +24,7 @@ export class ProductsController {
 
   // Get method to get a product by id
   @Get(':id')
-  getProductById(@Param('id') id: string) {
+  getProductById(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.getProductById(id);
   }
 
@@ -35,13 +36,13 @@ export class ProductsController {
 
   // Delete method to delete a product
   @Delete(':id')
-  deleteProduct(@Param('id') id: string) {
+  deleteProduct(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.deleteProducts(id);
   }
 
   // Put method to update a product
   @Put(':id')
-  updateProduct(@Param('id') id: string, @Body() body: { title: string }) {
+  updateProduct(@Param('id', ParseIntPipe) id: number, @Body() body: { title: string }) {
     return this.productsService.updateProduct(body, id);
   }
 }
