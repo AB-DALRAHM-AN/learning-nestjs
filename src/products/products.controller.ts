@@ -30,8 +30,8 @@ export class ProductsController {
 
   // Post method to add a product
   @Post('')
-  addProduct(@Req() request: Request) {
-    return this.productsService.addProduct(request);
+  addProduct(@Body() body: { title: string }) {
+    return this.productsService.addProduct(body);
   }
 
   // Delete method to delete a product

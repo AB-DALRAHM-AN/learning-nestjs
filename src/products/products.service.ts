@@ -46,11 +46,11 @@ export class ProductsService {
     };
   }
 
-  addProduct(request: Request) {
+  addProduct(body: { title: string }) {
     const lastProductId = this.products[this.products.length - 1].id;
     const newProduct = {
       id: lastProductId + 1,
-      title: request.body.title,
+      title: body.title,
     };
     this.products.push(newProduct);
     return newProduct;
