@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from 'interfaces';
 import { CreateProductsDto } from './dto/create-products.dto';
+import { UpdateProductsDto } from './dto/update-products.dto';
 
 @Injectable()
 export class ProductsService {
@@ -61,14 +62,14 @@ export class ProductsService {
     return newProduct;
   }
 
-  updateProduct(body: { title: string }, id: number) {
+  updateProduct(UpdateProductsDto: UpdateProductsDto, id: number) {
     const productIndex = this.products.findIndex(
       (product) => product.id === +id,
     );
     if (productIndex === -1) {
       return 'No product found';
     }
-    this.products[productIndex].title = body.title;
+    this.products[productIndex].title = UpdateProductsDto.title;
     return {
       message: 'Product updated',
       product: this.products[productIndex],

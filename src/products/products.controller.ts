@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
+import { UpdateProductsDto } from './dto/update-products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -44,7 +45,7 @@ export class ProductsController {
 
   // Put method to update a product
   @Put(':id')
-  updateProduct(@Param('id', ParseIntPipe) id: number, @Body() body: { title: string }) {
-    return this.productsService.updateProduct(body, id);
+  updateProduct(@Param('id', ParseIntPipe) id: number, @Body() updateProductsDto: UpdateProductsDto) {
+    return this.productsService.updateProduct(updateProductsDto, id);
   }
 }
