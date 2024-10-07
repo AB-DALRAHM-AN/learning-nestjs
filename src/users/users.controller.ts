@@ -12,6 +12,13 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Get('ab*cd')
+  getwildcard() {
+    return {
+      message: 'This route uses a wildcard',
+    };
+  }
+
   @Get()
   findAll() {
     return this.usersService.findAll();
@@ -30,5 +37,12 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
+  }
+
+  @Get('*')
+  notFound() {
+    return {
+      message: 'This route is not found',
+    };
   }
 }
