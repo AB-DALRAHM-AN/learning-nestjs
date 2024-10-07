@@ -21,6 +21,16 @@ export class ProductsService {
       title: 'Third Book',
       description: 'This is the third book',
     },
+    {
+      id: 4,
+      title: 'Fourth Book',
+      description: 'This is the fourth book',
+    },
+    {
+      id: 5,
+      title: 'Fifth Book',
+      description: 'This is the fifth book',
+    }
   ];
 
   getProducts() {
