@@ -1,9 +1,10 @@
 // Root module of the application
 
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { ChatModule } from './chat/chat.module';
+import { AuthMiddleware } from './auth/auth.middleware';
 
 @Module({
   imports: [UsersModule, ProductsModule, ChatModule],
@@ -11,4 +12,8 @@ import { ChatModule } from './chat/chat.module';
   providers: [],
   exports: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('*');
+  }
+}
